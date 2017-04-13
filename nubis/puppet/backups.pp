@@ -87,7 +87,7 @@ file { '/etc/lighttpd/lighttpd.conf':
   ],
 }
 
-file { '/var/www/index.html':
+file { '/var/www/index.txt':
   ensure  => file,
   owner   => 'root',
   group   => 'root',
