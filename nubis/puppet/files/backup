@@ -10,6 +10,10 @@ cleanup() {
   start prometheus BACKUP=SKIP >/dev/null 2>&1
 }
 
+start_in_progress_banner() {
+  /etc/init.d/lighttpd start
+}
+
 save() {
   # Ensures we start prometheus no matter what once done
   if [ "$UPSTART_JOB" == "" ]; then
@@ -22,7 +26,7 @@ save() {
   fi
 
   # We are now stopped so bring up our Backup Running page
-  /etc/init.d/lighttpd start
+  start_in_progress_banner
 
   # Backup
   run_duply prometheus backup --force --allow-source-mismatch
@@ -34,7 +38,7 @@ restore() {
   fi
 
   # We are now stopped so bring up our Backup Running page
-  /etc/init.d/lighttpd start
+  start_in_progress_banner
 
   # Clean out Prometheus
   rm -rf /var/lib/prometheus/*
